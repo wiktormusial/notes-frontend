@@ -1,7 +1,7 @@
 import { Formik, Form, Field } from 'formik';
 import { AuthRegisterValidationSchema } from './AuthRegisterValidationSchema'
 
-export default function AuthLogin () {
+export default function AuthRegister () {
 
   function handleUserClick(values) {
     console.log(values)

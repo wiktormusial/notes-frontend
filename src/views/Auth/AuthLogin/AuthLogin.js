@@ -22,7 +22,7 @@ export default function AuthLogin () {
         setError(loginStatus)
       }
     }
-  }, [loginStatus])
+  }, [loginStatus, navigate])
 
   return(
     <div>

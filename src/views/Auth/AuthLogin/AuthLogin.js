@@ -22,7 +22,7 @@ export default function AuthLogin () {
         <Form>
           <Field name="username" /><br/>
           {errors.username && touched.username && <div>{errors.username}</div>}
-          <Field name="password"/><br/>
+          <Field name="password" type="password"/><br/>
           {errors.password && touched.password && <div>{errors.password}</div>}
           <button type="submit">Submit</button>
         </Form>

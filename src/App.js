@@ -5,9 +5,9 @@ import {
   Route
 } from "react-router-dom";
 
-import AuthLogin from './views/Auth/AuthLogin/AuthLogin'
-import AuthRegister from './views/Auth/AuthRegister/AuthRegister'
-import NotesList from './views/Notes/NotesList/NotesList'
+import AuthLogin from '@views/Auth/AuthLogin/AuthLogin'
+import AuthRegister from '@views/Auth/AuthRegister/AuthRegister'
+import NotesList from '@views/Notes/NotesList/NotesList'
 
 function App() {
   return (

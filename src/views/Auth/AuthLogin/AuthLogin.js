@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Formik, Form, Field } from 'formik';
 import { useNavigate } from "react-router-dom";
-import userLogin from '../../../utils/Auth/userLogin'
+import userLogin from '@utils/Auth/userLogin'
 import { AuthLoginValidationSchema } from './AuthLoginValidationSchema'
 
 export default function AuthLogin () {

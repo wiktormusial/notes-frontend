@@ -9,7 +9,7 @@ export const getUserData = createAsyncThunk(
     if (token !== undefined) {
       const response = await axios({
         method: 'get',
-        url: `${process.env.REACT_APP_API_URL}users/getuserinfo/`,
+        url: `${process.env.REACT_APP_API_URL}users/getuserinfo`,
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Token ${token}`

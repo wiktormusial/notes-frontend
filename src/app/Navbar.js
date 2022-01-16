@@ -2,16 +2,22 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { userLoggedOut, getUserData, getUsersStatus, getUserLogStatus } from '@store/users/usersSlice'
+import { fetchNotes, getNotesStatus } from '@store/notes/notesSlice'
 import { removeToken } from '@utils/Auth/removeToken'
 
 export default function Navbar () {
   const dispatch = useDispatch()
   const getUserStatus = useSelector(getUsersStatus)
   const userLoginStatus = useSelector(getUserLogStatus)
+  const notesStatus = useSelector(getNotesStatus)
 
   useEffect(() => {
     if (getUserStatus === 'idle') {
       dispatch(getUserData())
+    }
+
+    if (notesStatus === 'idle' && userLoginStatus === true) {
+      dispatch(fetchNotes())
     }
   })
 

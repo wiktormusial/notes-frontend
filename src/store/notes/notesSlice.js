@@ -31,7 +31,22 @@ export const notesSlice = createSlice({
   initialState,
   reducers: {
 
-  }
+  },
+  extraReducers(builder) {
+    builder
+      .addCase(fetchNotes.fulfilled, (state, action) => {
+        state.status = 'succeeded'
+        state.notes = action.payload
+      })
+      .addCase(fetchNotes.pending, (state, action) => {
+        state.status = 'loading'
+      })
+      .addCase(fetchNotes.rejected, (state, action) => {
+        state.status = 'failed'
+        state.error = action.error.message
+      })
+  },
 })
 
+export const getNotesStatus = (state) => state.notes.status
 export default notesSlice.reducer;

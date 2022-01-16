@@ -12,6 +12,7 @@ module.exports = {
           "@store": "./src/store",
           "@views": "./src/views",
           "@utils": "./src/utils",
+          "@components": "./src/components",
         }
       }
     }

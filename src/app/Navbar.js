@@ -30,7 +30,7 @@ export default function Navbar () {
   if (userLoginStatus === true) {
     return(
       <header>
-        <h1>Navbar</h1>
+        <Link to="/"><h1>Navbar</h1></Link>
         <Link to="/" onClick={handleUserClick}>Logout</Link> { " " }
         <hr/>
       </header>
@@ -38,7 +38,7 @@ export default function Navbar () {
   } else {
     return(
       <header>
-        <h1>Navbar</h1>
+        <Link to="/"><h1>Navbar</h1></Link>
         <Link to="/login">Login</Link> { " " }
         <Link to="/register">Register</Link> { " " }
         <hr/>

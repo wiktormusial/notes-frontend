@@ -30,7 +30,9 @@ export const notesSlice = createSlice({
   name: 'notes',
   initialState,
   reducers: {
-
+    reloadState(state) {
+      state.status = 'idle'
+    }
   },
   extraReducers(builder) {
     builder
@@ -47,6 +49,8 @@ export const notesSlice = createSlice({
       })
   },
 })
+
+export const { reloadState } = notesSlice.actions
 
 export const getNotesStatus = (state) => state.notes.status
 export const getNotes = (state) => state.notes.notes

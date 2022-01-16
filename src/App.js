@@ -5,6 +5,7 @@ import {
   Route
 } from "react-router-dom";
 
+import Navbar from './app/Navbar'
 import AuthLogin from '@views/Auth/AuthLogin/AuthLogin'
 import AuthRegister from '@views/Auth/AuthRegister/AuthRegister'
 import AuthRegisterSuccess from '@views/Auth/AuthRegister/AuthRegisterSuccess'
@@ -13,6 +14,7 @@ import NotesList from '@views/Notes/NotesList/NotesList'
 function App() {
   return (
     <BrowserRouter>
+    <Navbar />
       <Routes>
         <Route path="/" element={<NotesList />}/>
         <Route path="/login" element={<AuthLogin />}/>

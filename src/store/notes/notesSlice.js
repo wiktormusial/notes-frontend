@@ -49,4 +49,5 @@ export const notesSlice = createSlice({
 })
 
 export const getNotesStatus = (state) => state.notes.status
+export const getNotes = (state) => state.notes.notes
 export default notesSlice.reducer;

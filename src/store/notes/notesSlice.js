@@ -20,6 +20,30 @@ export const fetchNotes = createAsyncThunk(
   }
 )
 
+export const addNewNote = createAsyncThunk(
+  'notes/addNewNote',
+  async(values) => {
+    const token = getToken()
+    if (token !== undefined) {
+      const response = await axios({
+        method: 'post',
+        url: `${process.env.REACT_APP_API_URL}notes`,
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Token ${token}`
+        },
+        data: {
+          title: values.title,
+          body: values.body,
+          category: 1,
+          author: 1,
+        }
+      })
+      return response.data
+    }
+  }
+)
+
 const initialState = {
   status: 'idle',
   error: null,
@@ -46,6 +70,13 @@ export const notesSlice = createSlice({
       .addCase(fetchNotes.rejected, (state, action) => {
         state.status = 'failed'
         state.error = action.error.message
+      })
+    builder
+      .addCase(addNewNote.rejected, (state, action) => {
+        state.error = action.error.message
+      })
+      .addCase(addNewNote.fulfilled, (state, action) => {
+        state.notes.push(action.payload)
       })
   },
 })

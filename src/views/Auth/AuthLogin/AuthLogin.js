@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { Formik, Form, Field } from 'formik';
 import { useNavigate } from "react-router-dom";
 import userLogin from '@utils/Auth/userLogin'
+import { getUserData } from '@store/users/usersSlice'
 import { AuthLoginValidationSchema } from './AuthLoginValidationSchema'
 
 export default function AuthLogin () {
   const [loginStatus, setLoginStatus] = useState()
   const [error, setError] = useState()
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   function handleUserClick(values) {
     userLogin(values)
@@ -17,12 +20,13 @@ export default function AuthLogin () {
   useEffect(() => {
     if (loginStatus !== undefined) {
       if (loginStatus.key) {
+        dispatch(getUserData())
         navigate('/')
       } else {
         setError(loginStatus)
       }
     }
-  }, [loginStatus, navigate])
+  }, [loginStatus, navigate, dispatch])
 
   return(
     <div>

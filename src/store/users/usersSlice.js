@@ -50,5 +50,5 @@ export const usersSlice = createSlice({
 })
 
 export const getUserLogStatus = (state) => state.users.is_logged_in
-
+export const getUsersStatus = (state) => state.users.status
 export default usersSlice.reducer;

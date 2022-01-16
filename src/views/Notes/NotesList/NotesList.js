@@ -17,7 +17,6 @@ export default function NotesList () {
   if (notesStatus === "loading") {
     noteslist = "Loading"
   } else if (notesStatus === "succeeded") {
-    console.log(notes)
     noteslist = notes.map((note) => {
       return(
         <NotesListElement key={note.id} note={note} />

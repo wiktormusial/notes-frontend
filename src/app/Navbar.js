@@ -1,7 +1,8 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { getUserData, getUsersStatus, getUserLogStatus } from '@store/users/usersSlice'
+import { userLoggedOut, getUserData, getUsersStatus, getUserLogStatus } from '@store/users/usersSlice'
+import { removeToken } from '@utils/Auth/removeToken'
 
 export default function Navbar () {
   const dispatch = useDispatch()
@@ -14,10 +15,16 @@ export default function Navbar () {
     }
   })
 
+  async function handleUserClick() {
+    await removeToken()
+    await dispatch(userLoggedOut())
+  }
+
   if (userLoginStatus === true) {
     return(
       <header>
         <h1>Navbar</h1>
+        <Link to="/" onClick={handleUserClick}>Logout</Link> { " " }
         <hr/>
       </header>
     )

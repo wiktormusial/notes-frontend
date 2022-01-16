@@ -4,6 +4,7 @@ import { useNavigate, Link } from 'react-router-dom'
 import { getUserLogStatus } from '@store/users/usersSlice'
 import { getNotesStatus, getNotes } from '@store/notes/notesSlice'
 import { UserNotLogged } from '@components/Errors/UserNotLogged'
+import NotesListElement from '@views/Notes/NotesList/NotesListElement'
 
 export default function NotesList () {
   const navigate = useNavigate()
@@ -19,12 +20,7 @@ export default function NotesList () {
     console.log(notes)
     noteslist = notes.map((note) => {
       return(
-        <div key={note.id}>
-          <Link to={`${note.slug}`}><h3>{note.title}</h3></Link>
-          <p>{note.created_at}</p>
-          <p>{note.body}</p>
-          <p>{note.category}</p>
-        </div>
+        <NotesListElement key={note.id} note={note} />
       )
     })
   }

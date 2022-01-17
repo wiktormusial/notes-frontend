@@ -12,6 +12,7 @@ import AuthRegisterSuccess from '@views/Auth/AuthRegister/AuthRegisterSuccess'
 import NotesList from '@views/Notes/NotesList/NotesList'
 import Note from '@views/Notes/Note/Note'
 import NoteAdd from '@views/Notes/NoteAdd/NoteAdd'
+import NoteEdit from '@views/Notes/NoteEdit/NoteEdit'
 
 function App() {
   return (
@@ -19,8 +20,9 @@ function App() {
     <Navbar />
       <Routes>
         <Route path="/" element={<NotesList />}/>
-        <Route path="/:slug" element={<Note />}/>
         <Route path="/addnote" element={<NoteAdd />}/>
+        <Route path="/:slug" element={<Note />}/>
+        <Route path="/:slug/edit" element={<NoteEdit />}/>
         <Route path="/login" element={<AuthLogin />}/>
         <Route path="/register" element={<AuthRegister />}/>
         <Route path="/register/success" element={<AuthRegisterSuccess />} />

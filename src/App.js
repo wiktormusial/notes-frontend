@@ -13,11 +13,13 @@ import NotesList from '@views/Notes/NotesList/NotesList'
 import Note from '@views/Notes/Note/Note'
 import NoteAdd from '@views/Notes/NoteAdd/NoteAdd'
 import NoteEdit from '@views/Notes/NoteEdit/NoteEdit'
+import CategoriesList from '@views/Categories/CategoriesList/CategoriesList'
 
 function App() {
   return (
     <BrowserRouter>
     <Navbar />
+    <CategoriesList />
       <Routes>
         <Route path="/" element={<NotesList />}/>
         <Route path="/addnote" element={<NoteAdd />}/>

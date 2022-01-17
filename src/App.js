@@ -14,6 +14,7 @@ import Note from '@views/Notes/Note/Note'
 import NoteAdd from '@views/Notes/NoteAdd/NoteAdd'
 import NoteEdit from '@views/Notes/NoteEdit/NoteEdit'
 import CategoriesList from '@views/Categories/CategoriesList/CategoriesList'
+import CategoryFilter from '@views/Categories/CategoryFilter/CategoryFilter'
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/addnote" element={<NoteAdd />}/>
         <Route path="/:slug" element={<Note />}/>
         <Route path="/:slug/edit" element={<NoteEdit />}/>
+        <Route path="/category/:id" element={<CategoryFilter />}/>
         <Route path="/login" element={<AuthLogin />}/>
         <Route path="/register" element={<AuthRegister />}/>
         <Route path="/register/success" element={<AuthRegisterSuccess />} />

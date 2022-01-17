@@ -35,7 +35,7 @@ export const addNewNote = createAsyncThunk(
         data: {
           title: values.title,
           body: values.body,
-          category: 1,
+          category: values.category,
           author: 1,
         }
       })

@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { Formik, Form, Field } from 'formik'
 import { getNotes, getNotesStatus } from '@store/notes/notesSlice'
+import CategoriesFormBox from '@components/Categories/CategoriesFormBox/CategoriesFormBox'
 import { NoteEditValidationSchema } from './NoteEditValidationSchema'
 
 export default function NoteEdit() {
@@ -16,7 +17,8 @@ export default function NoteEdit() {
         <Formik
           initialValues={{
             title: note.title,
-            body: note.body
+            body: note.body,
+            category: note.category,
           }}
           validationSchema={NoteEditValidationSchema}
         >
@@ -28,6 +30,7 @@ export default function NoteEdit() {
             <label htmlFor="body">Body</label><br/>
             <Field name="body" as="textarea"/><br/>
             {errors.body && touched.body && <div>{errors.body}</div>}
+            <CategoriesFormBox />
             <button type="submit">Submit</button>
           </Form>
         )}

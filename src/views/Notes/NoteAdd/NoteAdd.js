@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Formik, Form, Field } from 'formik'
 import { getUserLogStatus } from '@store/users/usersSlice'
 import { addNewNote } from '@store/notes/notesSlice'
+import CategoriesFormBox from '@components/Categories/CategoriesFormBox/CategoriesFormBox'
 import { NoteAddValidationSchema } from './NoteAddValidationSchema'
 
 export default function NoteAdd () {
@@ -22,7 +23,8 @@ export default function NoteAdd () {
         <Formik
           initialValues={{
             title: '',
-            body: ''
+            body: '',
+            category: 'blank'
           }}
           validationSchema={NoteAddValidationSchema}
           onSubmit={(values) => handleUserClick(values)}
@@ -35,6 +37,7 @@ export default function NoteAdd () {
             <label htmlFor="body">Body</label><br/>
             <Field name="body" as="textarea"/><br/>
             {errors.body && touched.body && <div>{errors.body}</div>}
+            <CategoriesFormBox />
             <button type="submit">Submit</button>
           </Form>
         )}

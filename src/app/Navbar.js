@@ -39,6 +39,7 @@ export default function Navbar () {
     return(
       <header>
         <Link to="/"><h1>Navbar</h1></Link>
+        <Link to="/addnote">Add note</Link> { " " }
         <Link to="/" onClick={handleUserClick}>Logout</Link> { " " }
         <hr/>
       </header>

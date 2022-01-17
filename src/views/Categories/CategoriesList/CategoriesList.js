@@ -1,9 +1,11 @@
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { getCategories } from '@store/categories/categoriesSlice'
+import { getUserLogStatus } from '@store/users/usersSlice'
 
 export default function CategoriesList () {
   const categories = useSelector(getCategories)
+  const userLoginStatus = useSelector(getUserLogStatus)
 
   const categoriesList = categories.map((item) => {
     return (
@@ -12,11 +14,15 @@ export default function CategoriesList () {
       </span>
     )
   })
-
-  return (
-    <div>
-      <Link to="/">Main</Link> {" // "}
-      {categoriesList}
-    </div>
-  )
+  
+  if(userLoginStatus) {
+    return (
+      <div>
+        <Link to="/">Main</Link> {" // "}
+        {categoriesList}
+      </div>
+    )
+  } else {
+    return ""
+  }
 }

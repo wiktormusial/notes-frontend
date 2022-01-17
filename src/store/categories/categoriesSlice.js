@@ -30,7 +30,10 @@ export const categoriesSlice = createSlice({
   name: 'categories',
   initialState,
   reducers: {
-
+    reloadCategoriesState(state) {
+      state.status = 'idle'
+      state.categories = []
+    }
   },
   extraReducers(builder) {
     builder
@@ -47,6 +50,8 @@ export const categoriesSlice = createSlice({
       })
   }
 })
+
+export const { reloadCategoriesState } = categoriesSlice.actions
 
 export const getCategoriesStatus = (state) => state.categories.status
 export const getCategories = (state) => state.categories.categories

@@ -24,15 +24,9 @@ export default function NotesList () {
     })
   }
 
-  if (userLoginStatus === false) {
-    return(
-      <UserNotLogged />
-    )
-  } else {
-    return (
-      <section>
-        {noteslist}
-      </section>
-    )
-  }
+  return (
+    <section>
+      {noteslist}
+    </section>
+  )
 }

@@ -2,8 +2,8 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { userLoggedOut, getUserData, getUsersStatus, getUserLogStatus } from '@store/users/usersSlice'
-import { fetchNotes, getNotesStatus, reloadState } from '@store/notes/notesSlice'
-import { fetchCategories, getCategoriesStatus, reloadCategoriesState } from '@store/categories/categoriesSlice'
+import { fetchNotes, getNotesStatus } from '@store/notes/notesSlice'
+import { fetchCategories, getCategoriesStatus } from '@store/categories/categoriesSlice'
 import { removeToken } from '@utils/Auth/removeToken'
 
 export default function Navbar () {
@@ -31,8 +31,6 @@ export default function Navbar () {
   async function handleUserClick() {
     await removeToken()
     await dispatch(userLoggedOut())
-    // await dispatch(reloadState())
-    await dispatch(reloadCategoriesState())
   }
 
   if (userLoginStatus === true) {

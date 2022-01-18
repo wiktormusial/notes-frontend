@@ -1,6 +1,7 @@
-import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 import getToken from '@utils/Auth/getToken'
+import { userLoggedOut } from '@store/users/usersSlice'
 import { deleteCategory } from '@store/categories/categoriesSlice'
 
 export const fetchNotes = createAsyncThunk(
@@ -108,7 +109,7 @@ export const notesSlice = createSlice({
         state.error = action.error.message
       })
       .addCase(editNote.fulfilled, (state, action) => {
-        const { id, title, body, category } = action.payload
+        const { title, body, category } = action.payload
         const existingNote = state.notes.find(note => note.id === action.payload.id)
         if (existingNote) {
           existingNote.title = title
@@ -116,13 +117,15 @@ export const notesSlice = createSlice({
           existingNote.category = category
         }
       })
-  builder.addCase(deleteCategory.fulfilled, (state, action) => {
-    state.notes = state.notes.filter(element => element.category !== parseInt(action.meta.arg))
-  })
+    builder.addCase(deleteCategory.fulfilled, (state, action) => {
+      state.notes = state.notes.filter(element => element.category !== parseInt(action.meta.arg))
+    })
+    builder.addCase(userLoggedOut, (state) => {
+      state.status = 'idle'
+      state.notes = []
+    })
   },
 })
-
-export const { reloadState } = notesSlice.actions
 
 export const getNotesStatus = (state) => state.notes.status
 export const getNotes = (state) => state.notes.notes

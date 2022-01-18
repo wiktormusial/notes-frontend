@@ -1,6 +1,7 @@
-import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 import getToken from '@utils/Auth/getToken'
+import { userLoggedOut } from '@store/users/usersSlice'
 
 export const fetchCategories = createAsyncThunk(
   'categories/fetchCategories',
@@ -71,10 +72,6 @@ export const categoriesSlice = createSlice({
   name: 'categories',
   initialState,
   reducers: {
-    reloadCategoriesState(state) {
-      state.status = 'idle'
-      state.categories = []
-    },
   },
   extraReducers(builder) {
     builder
@@ -100,10 +97,12 @@ export const categoriesSlice = createSlice({
       .addCase(deleteCategory.fulfilled, (state, action) => {
         state.categories = state.categories.filter(element => element.id !== parseInt(action.meta.arg))
       })
+    builder.addCase(userLoggedOut, (state) => {
+      state.status = 'idle'
+      state.categories = []
+    })
   }
 })
-
-export const { reloadCategoriesState } = categoriesSlice.actions
 
 export const getCategoriesStatus = (state) => state.categories.status
 export const getCategories = (state) => state.categories.categories

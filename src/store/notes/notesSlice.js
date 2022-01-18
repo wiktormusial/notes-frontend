@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit'
 import axios from 'axios'
 import getToken from '@utils/Auth/getToken'
 
@@ -44,17 +44,41 @@ export const addNewNote = createAsyncThunk(
   }
 )
 
+export const editNote = createAsyncThunk(
+  'notes/editNote',
+  async(values) => {
+    const token = getToken()
+    if (token !== undefined) {
+      const response = await axios({
+        method: 'put',
+        url: `${process.env.REACT_APP_API_URL}notes/107`,
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Token ${token}`
+        },
+        data: {
+          title: values.title,
+          body: values.body,
+          category: values.category,
+          author: 1,
+        }
+      })
+      return response.data
+    }
+  }
+)
+
 const initialState = {
   status: 'idle',
   error: null,
-  notes: []
+  notes: [],
 }
 
 export const notesSlice = createSlice({
   name: 'notes',
   initialState,
   reducers: {
-    reloadState(state) {
+    reloadState: (state) => {
       state.status = 'idle'
     }
   },
@@ -77,6 +101,19 @@ export const notesSlice = createSlice({
       })
       .addCase(addNewNote.fulfilled, (state, action) => {
         state.notes.push(action.payload)
+      })
+    builder
+      .addCase(editNote.rejected, (state, action) => {
+        state.error = action.error.message
+      })
+      .addCase(editNote.fulfilled, (state, action) => {
+        const { id, title, body, category } = action.payload
+        const existingNote = state.notes.find(note => note.id === action.payload.id)
+        if (existingNote) {
+          existingNote.title = title
+          existingNote.body = body
+          existingNote.category = category
+        }
       })
   },
 })

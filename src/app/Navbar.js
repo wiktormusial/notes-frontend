@@ -31,7 +31,7 @@ export default function Navbar () {
   async function handleUserClick() {
     await removeToken()
     await dispatch(userLoggedOut())
-    await dispatch(reloadState())
+    // await dispatch(reloadState())
     await dispatch(reloadCategoriesState())
   }
 

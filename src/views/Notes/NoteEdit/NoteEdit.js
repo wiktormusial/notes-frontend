@@ -1,17 +1,23 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { Formik, Form, Field } from 'formik'
-import { getNotes, getNotesStatus } from '@store/notes/notesSlice'
+import { getNotes, getNotesStatus, editNote } from '@store/notes/notesSlice'
 import CategoriesFormBox from '@components/Categories/CategoriesFormBox/CategoriesFormBox'
 import { NoteEditValidationSchema } from './NoteEditValidationSchema'
 
 export default function NoteEdit() {
   const params = useParams()
+  const dispatch = useDispatch()
   const notesStatus = useSelector(getNotesStatus)
   const notes = useSelector(getNotes)
 
+  function handleUserClick (id, values) {
+    dispatch(editNote({ id: id, title: values.title, body: values.body, category: values.category, }))
+  }
+
   if (notesStatus === 'succeeded') {
     const note = notes.find(element => element.slug === params.slug)
+    const id = note.id
     return(
       <div>
         <Formik
@@ -21,6 +27,7 @@ export default function NoteEdit() {
             category: note.category,
           }}
           validationSchema={NoteEditValidationSchema}
+          onSubmit={(values) => handleUserClick(id, values)}
         >
         {({ errors, touched, isValidating }) => (
           <Form>

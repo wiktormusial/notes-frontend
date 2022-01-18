@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit'
 import axios from 'axios'
 import getToken from '@utils/Auth/getToken'
 
@@ -43,6 +43,24 @@ export const addNewCategory = createAsyncThunk(
   }
 )
 
+export const deleteCategory = createAsyncThunk(
+  'categories/deleteCategory',
+  async(id) => {
+    const token = getToken()
+    if (token !== undefined) {
+      const response = await axios({
+        method: 'delete',
+        url: `${process.env.REACT_APP_API_URL}categories/${id}`,
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Token ${token}`
+        },
+      })
+      return response.data
+    }
+  }
+)
+
 const initialState = {
   status: 'idle',
   error: null,
@@ -56,7 +74,7 @@ export const categoriesSlice = createSlice({
     reloadCategoriesState(state) {
       state.status = 'idle'
       state.categories = []
-    }
+    },
   },
   extraReducers(builder) {
     builder
@@ -77,6 +95,10 @@ export const categoriesSlice = createSlice({
       })
       .addCase(addNewCategory.fulfilled, (state, action) => {
         state.categories.push(action.payload)
+      })
+    builder
+      .addCase(deleteCategory.fulfilled, (state, action) => {
+        state.categories = state.categories.filter(element => element.id !== parseInt(action.meta.arg))
       })
   }
 })

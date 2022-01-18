@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit'
 import axios from 'axios'
 import getToken from '@utils/Auth/getToken'
+import { deleteCategory } from '@store/categories/categoriesSlice'
 
 export const fetchNotes = createAsyncThunk(
   'notes/fetchNotes',
@@ -115,6 +116,9 @@ export const notesSlice = createSlice({
           existingNote.category = category
         }
       })
+  builder.addCase(deleteCategory.fulfilled, (state, action) => {
+    state.notes = state.notes.filter(element => element.category !== parseInt(action.meta.arg))
+  })
   },
 })
 

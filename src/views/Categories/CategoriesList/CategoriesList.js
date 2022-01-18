@@ -14,12 +14,12 @@ export default function CategoriesList () {
       </span>
     )
   })
-  
+
   if(userLoginStatus) {
     return (
       <div>
         <Link to="/">Main</Link> {" // "}
-        {categoriesList}
+        {categoriesList}<br/>
       </div>
     )
   } else {

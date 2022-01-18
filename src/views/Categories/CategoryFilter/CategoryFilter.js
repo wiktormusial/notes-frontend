@@ -1,17 +1,24 @@
-import { useSelector } from 'react-redux'
-import { useParams, Link } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import { getNotes, getNotesStatus } from '@store/notes/notesSlice'
-import { getCategoriesStatus } from '@store/categories/categoriesSlice'
+import { getCategoriesStatus, deleteCategory } from '@store/categories/categoriesSlice'
 import { getUserLogStatus } from '@store/users/usersSlice'
 import NotesListElement from '@views/Notes/NotesList/NotesListElement'
 import UserNotLogged from '@components/Errors/UserNotLogged'
 
 export default function CategoryFilter() {
   const params = useParams()
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const notesStatus = useSelector(getNotesStatus)
   const categoriesStatus = useSelector(getCategoriesStatus)
   const userLogStatus = useSelector(getUserLogStatus)
   const notes = useSelector(getNotes)
+
+  function handleUserClick () {
+    dispatch(deleteCategory(params.id))
+    navigate('/')
+  }
 
   if(userLogStatus) {
     if (notesStatus === 'succeeded' && categoriesStatus === 'succeeded') {
@@ -22,7 +29,10 @@ export default function CategoryFilter() {
       })
 
       return (
+        <section>
+        <button onClick={() => handleUserClick()}>Delete category</button>
         <div>{notesList}</div>
+        </section>
       )
     } else {
       return (

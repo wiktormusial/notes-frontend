@@ -20,6 +20,29 @@ export const fetchCategories = createAsyncThunk(
   }
 )
 
+export const addNewCategory = createAsyncThunk(
+  'categories/addNewCategory',
+  async(values) => {
+    const token = getToken()
+    if (token !== undefined) {
+      const response = await axios({
+        method: 'post',
+        url: `${process.env.REACT_APP_API_URL}categories`,
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Token ${token}`
+        },
+        data: {
+          name: values.name,
+          desc: '',
+          author: 1,
+        }
+      })
+      return response.data
+    }
+  }
+)
+
 const initialState = {
   status: 'idle',
   error: null,
@@ -47,6 +70,13 @@ export const categoriesSlice = createSlice({
       .addCase(fetchCategories.rejected, (state, action) => {
         state.status = 'failed'
         state.error = action.error.message
+      })
+    builder
+      .addCase(addNewCategory.rejected, (state, action) => {
+        state.error = action.error.message
+      })
+      .addCase(addNewCategory.fulfilled, (state, action) => {
+        state.categories.push(action.payload)
       })
   }
 })

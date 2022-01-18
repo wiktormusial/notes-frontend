@@ -36,7 +36,6 @@ export const addNewCategory = createAsyncThunk(
         data: {
           name: values.name,
           desc: '',
-          author: 1,
         }
       })
       return response.data

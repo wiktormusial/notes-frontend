@@ -38,7 +38,6 @@ export const addNewNote = createAsyncThunk(
           title: values.title,
           body: values.body,
           category: values.category,
-          author: 1,
         }
       })
       return response.data
@@ -62,7 +61,6 @@ export const editNote = createAsyncThunk(
           title: values.title,
           body: values.body,
           category: values.category,
-          author: 1,
         }
       })
       return response.data

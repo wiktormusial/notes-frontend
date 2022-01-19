@@ -13,8 +13,12 @@ export default function NoteEdit() {
   const notes = useSelector(getNotes)
 
   function handleUserClick (values) {
-    dispatch(editNote({ id: values.id, title: values.title, body: values.body, category: values.category, }))
-    navigate(`/${values.slug}`)
+    if (values.category !== 'blank') {
+      dispatch(editNote({ id: values.id, title: values.title, body: values.body, category: values.category, }))
+      navigate(`/${values.slug}`)
+    } else {
+      console.log('Add category')
+    }
   }
 
   if (notesStatus === 'succeeded') {

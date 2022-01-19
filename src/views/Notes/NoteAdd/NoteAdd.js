@@ -12,8 +12,12 @@ export default function NoteAdd () {
   const userLogStatus = useSelector(getUserLogStatus)
 
   function handleUserClick (values) {
-    dispatch(addNewNote(values))
-    navigate('/')
+    if (values.category !== 'blank') {
+      dispatch(addNewNote(values))
+      navigate('/')
+    } else {
+      console.log('Add category')
+    }
   }
 
   if (!userLogStatus) {

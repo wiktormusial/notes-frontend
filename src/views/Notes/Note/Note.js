@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux'
 import { useParams, Link } from 'react-router-dom'
 import { getNotes, getNotesStatus } from '@store/notes/notesSlice'
+import { dateFormatter } from '@utils/Date/dateFormatter'
 
 export default function Note() {
   const params = useParams()
@@ -13,7 +14,7 @@ export default function Note() {
     return (
       <div>
         <h3>{title}</h3>
-        <p>{created_at}</p>
+        <p>{dateFormatter(created_at)}</p>
         <p>{body}</p>
         <p>{content}</p>
         <p>{category}</p>

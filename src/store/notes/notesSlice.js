@@ -52,7 +52,7 @@ export const editNote = createAsyncThunk(
     if (token !== undefined) {
       const response = await axios({
         method: 'put',
-        url: `${process.env.REACT_APP_API_URL}notes/107`,
+        url: `${process.env.REACT_APP_API_URL}notes/${values.id}`,
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Token ${token}`

@@ -11,23 +11,23 @@ export default function NoteEdit() {
   const notesStatus = useSelector(getNotesStatus)
   const notes = useSelector(getNotes)
 
-  function handleUserClick (id, values) {
-    dispatch(editNote({ id: id, title: values.title, body: values.body, category: values.category, }))
+  function handleUserClick (values) {
+    dispatch(editNote({ id: values.id, title: values.title, body: values.body, category: values.category, }))
   }
 
   if (notesStatus === 'succeeded') {
     const note = notes.find(element => element.slug === params.slug)
-    const id = note.id
     return(
       <div>
         <Formik
           initialValues={{
+            id: note.id,
             title: note.title,
             body: note.body,
             category: note.category,
           }}
           validationSchema={NoteEditValidationSchema}
-          onSubmit={(values) => handleUserClick(id, values)}
+          onSubmit={(values) => handleUserClick(values)}
         >
         {({ errors, touched, isValidating }) => (
           <Form>

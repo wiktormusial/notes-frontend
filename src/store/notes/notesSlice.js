@@ -100,7 +100,7 @@ export const notesSlice = createSlice({
         state.error = action.error.message
       })
       .addCase(addNewNote.fulfilled, (state, action) => {
-        state.notes.push(action.payload)
+        state.notes.unshift(action.payload)
       })
     builder
       .addCase(editNote.rejected, (state, action) => {

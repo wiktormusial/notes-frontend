@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { Formik, Form, Field } from 'formik'
 import { getUserLogStatus } from '@store/users/usersSlice'
 import { addNewNote } from '@store/notes/notesSlice'
@@ -7,10 +8,12 @@ import { NoteAddValidationSchema } from './NoteAddValidationSchema'
 
 export default function NoteAdd () {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const userLogStatus = useSelector(getUserLogStatus)
 
   function handleUserClick (values) {
     dispatch(addNewNote(values))
+    navigate('/')
   }
 
   if (!userLogStatus) {

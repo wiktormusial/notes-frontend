@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { Formik, Form, Field } from 'formik'
 import { getNotes, getNotesStatus, editNote } from '@store/notes/notesSlice'
 import CategoriesFormBox from '@components/Categories/CategoriesFormBox/CategoriesFormBox'
@@ -8,11 +8,13 @@ import { NoteEditValidationSchema } from './NoteEditValidationSchema'
 export default function NoteEdit() {
   const params = useParams()
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const notesStatus = useSelector(getNotesStatus)
   const notes = useSelector(getNotes)
 
   function handleUserClick (values) {
     dispatch(editNote({ id: values.id, title: values.title, body: values.body, category: values.category, }))
+    navigate(`/${values.slug}`)
   }
 
   if (notesStatus === 'succeeded') {
@@ -22,6 +24,7 @@ export default function NoteEdit() {
         <Formik
           initialValues={{
             id: note.id,
+            slug: note.slug,
             title: note.title,
             body: note.body,
             category: note.category,

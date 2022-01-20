@@ -61,7 +61,7 @@ export const deleteCategory = createAsyncThunk(
   }
 )
 
-const initialState = {
+export const initialState = {
   status: 'idle',
   error: null,
   categories: []
